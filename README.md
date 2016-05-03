@@ -1,2 +1,4 @@
 # WeDate
-a gay repo
+
+Hello jjsen!
+Welcome to huiyu gay's party!
