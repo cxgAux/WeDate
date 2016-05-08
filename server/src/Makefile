@@ -1,22 +1,22 @@
-CC 		:=		g++
+CC 		:=		gcc
 BUILD 		:= 		debug
 TARGET		:=		../$(BUILD)/
-SRCS 		:=	 	respondtcpsrv.cpp
-OBJS 		:=		$(addprefix $(TARGET),$(SRCS:%.cpp=%.o))
+SRCS 		:=	 	tcpserver.c
+OBJS 		:=		$(addprefix $(TARGET),$(SRCS:%.c=%.o))
 BINS		:=		$(OBJS:%.o=%)
 INCLUDE 	:=		../Include 
 LIBS		:=		../Lib
-LDS		:=		unp log
+LDS		:=		unp log pthread
 debug_FLAGS	:=		-O3 -ggdb
 release_FLAGS	:=		-O2
-CXXOPS		:=		-Wall -std=c++11 -DCXG $($(build)_FLAGS)
+CXXOPS		:=		-Wall -std=c++11 -D_REENTRANT $($(build)_FLAGS)
 CXXFLAGS	:=		$(addprefix -I, $(INCLUDE)) $(addprefix -L, $(LIBS)) $(addprefix -l, $(LDS))
-.PHNOY : all
+.PHONY : all
 all : $(BINS)
-$(TARGET)respondtcpsrv : $(TARGET)respondtcpsrv.o
+$(TARGET)tcpserver : $(TARGET)tcpserver.o
 	$(CC) $(CXXOPS) $< -o $@ $(CXXFLAGS) 
-$(TARGET)%.o : %.cpp
+$(TARGET)%.o : %.c
 	$(CC) $(CXXOPS )-c $< -o $@ $(CXXFLAGS)
-.PHNOY : clean
+.PHONY : clean
 clean :
 	rm $(OBJS)
